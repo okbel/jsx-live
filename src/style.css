@@ -1,0 +1,23 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+  text-rendering: geometricPrecision;
+  background: #252525;
+}
+
+.CodeMirror div.CodeMirror-cursor {
+  border-left: 1px solid white;
+}
+
+#root {
+  height: 100%
+}
+
+.ReactCodeMirror {
+  height: 440px;
+}
