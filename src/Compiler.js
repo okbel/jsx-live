@@ -108,11 +108,13 @@ export default class Compiler extends Component {
             </div>
           </div>
         </div>
-        <button>
-          <Copy text={this.buildExport()} onCopy={() => console.log('Copied!!!!')}>
-            Export
-          </Copy>
-        </button>
+        {/*
+         <button>
+         <Copy text={this.buildExport()} onCopy={() => console.log('Copied!!!!')}>
+         Export
+         </Copy>
+         </button>
+        */}
       </div>
     )
   }
