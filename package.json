@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server",
     "dev": "node webpack-dev-server",
-    "build": "rm -rf build/* | NODE_ENV=production webpack --progress --env.prod"
+    "build": "rm -rf public/* | NODE_ENV=production webpack --progress --env.prod"
   },
   "babel": {
     "presets": [
