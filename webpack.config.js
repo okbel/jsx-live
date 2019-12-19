@@ -21,16 +21,16 @@ module.exports = env => {
       loaders: [
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
+          use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })
         },
         {
           test: /\.json$/,
-          loader: 'json-loader'
+          use: 'json-loader'
         },
         {
           test: /\.(js)$/,
           exclude: /node_modules/,
-          loader: 'babel',
+          use: 'babel',
           query: {
             cacheDirectory: true
           }

@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {css, merge} from 'glamor'
 import Editor from './components/Editor'
 import Alert from './components/Alert'
-import Copy from './components/Copy'
 
 export default class Compiler extends Component {
   constructor () {
@@ -108,13 +107,6 @@ export default class Compiler extends Component {
             </div>
           </div>
         </div>
-        {/*
-         <button>
-         <Copy text={this.buildExport()} onCopy={() => console.log('Copied!!!!')}>
-         Export
-         </Copy>
-         </button>
-        */}
       </div>
     )
   }
