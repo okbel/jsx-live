@@ -29,8 +29,8 @@ export default class Compiler extends Component {
     )
   );
   `,
-      error: '',
-      input: `
+    error: '',
+    input: `
   <div className={css(styles.main)}>
     <header className={css(styles.header)}>
       <h1 className={css(styles.title)}>
@@ -102,6 +102,7 @@ export default class Compiler extends Component {
                 codeText={output}
                 theme='ultraviolet'
                 title='output.js'
+                mode="javascript"
                 readOnly
               />
             </div>

@@ -1,7 +1,19 @@
-import React from 'react'
-import Codemirror from 'react-codemirror'
-import 'codemirror/mode/jsx/jsx'
+import React, {useEffect} from 'react'
+import { Controlled as CodeMirror } from 'react-codemirror2'
 import {css, merge} from 'glamor'
+import Copy from './Copy'
+
+//CodeMirror modes
+import 'codemirror/mode/jsx/jsx'
+
+//Code mirror addons
+import 'codemirror/addon/hint/show-hint'
+import 'codemirror/addon/hint/javascript-hint'
+import 'codemirror/addon/edit/closetag'
+
+import 'codemirror/addon/hint/show-hint.css'
+
+import copyIcon from '../assets/img/copy_icon.png'
 
 export default ({codeText, onChange, theme = 'material', mode = 'jsx', readOnly, ...props}) => {
   const options = {
@@ -9,10 +21,13 @@ export default ({codeText, onChange, theme = 'material', mode = 'jsx', readOnly,
     lineWrapping: true,
     smartIndent: false,
     matchBrackets: true,
+    autoCloseTags: true,
     readOnly,
     mode,
-    theme
+    theme,
+    extraKeys: { 'Ctrl-Space': 'autocomplete' }
   }
+
   return (
     <div className={css(styles.codeBox)}>
       <div className={css(styles.header[theme])}>
@@ -23,12 +38,20 @@ export default ({codeText, onChange, theme = 'material', mode = 'jsx', readOnly,
         </div>
         <span className={css(styles.title)} >{props.title}</span>
       </div>
-      <Codemirror
-        options={options}
-        value={codeText}
-        onChange={(code) => onChange(code)}
-        {...props}
-      />
+      <div className={css(styles.editorContainer)}>
+        <Copy text={codeText}>
+          <img className={css(styles.copyIcon)} src={copyIcon} />
+        </Copy>
+        <CodeMirror
+          options={options}
+          value={codeText}
+          editorDidMount={(editor) => { window.editor = editor }}
+          onBeforeChange={(editor, data, value) => {
+            onChange(value)
+          }}
+          {...props}
+        />
+      </div>
     </div>
   )
 }
@@ -84,5 +107,14 @@ const styles = {
   max: {
     backgroundColor: '#28CA40',
     border: 'solid 1px #3ab54b'
+  },
+  editorContainer: {
+    padding: 0,
+    margin: 0,
+    position: 'relative'
+  },
+  copyIcon: {
+    width: 22,
+    height: 22
   }
 }

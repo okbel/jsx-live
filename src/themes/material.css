@@ -130,3 +130,25 @@
   text-decoration: underline;
   color: white !important;
 }
+
+.CodeMirror-hints {
+  background-color: #1e2224;
+  border-radius: 3px;
+  padding: 4px;
+  box-sizing: border-box;
+  border: none;
+}
+
+.CodeMirror-hint {
+  color: 'white';
+  padding: '6px 10px';
+  font-family: 'Courier New';
+  font-size: 13;
+  box-sizing: 'inherit';
+  border-radius: 3;
+  color: #A0A8B4;
+}
+
+li.CodeMirror-hint-active {
+  background-color: #3b4247;
+}

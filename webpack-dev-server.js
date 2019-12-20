@@ -4,7 +4,7 @@ const webpackConfig = require('./webpack.config.js');
 const path = require('path');
 
 const env = {
-  dev: process.env.NODE_ENV
+  dev: process.env.NODE_ENV === 'development'
 };
 
 const devServerConfig = {

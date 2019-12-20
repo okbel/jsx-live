@@ -1,11 +1,10 @@
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 module.exports = env => {
-  console.log(env)
-  const ifProd = plugin =>  env.prod ? plugin : undefined;
+  const ifProd = plugin =>  !env.dev ? plugin : undefined;
   const removeEmpty = array => array.filter(p => !!p);
 
   return {
@@ -18,10 +17,15 @@ module.exports = env => {
       path: path.join(__dirname, 'public/')
     },
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.css$/,
-          use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    'css-loader',
+                ]
         },
         {
           test: /\.json$/,
@@ -30,35 +34,45 @@ module.exports = env => {
         {
           test: /\.(js)$/,
           exclude: /node_modules/,
-          use: 'babel',
-          query: {
-            cacheDirectory: true
+          use: {
+            loader: "babel-loader" //Usa este loader
           }
+        },
+        {
+          test: /\.(png|jpe?g|gif)$/i,
+          use: [
+            {
+              loader: 'file-loader',
+            },
+          ],
         }
       ]
     },
     plugins: removeEmpty([
-      new ExtractTextPlugin('style.css'),
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks: Infinity,
-        filename: '[name].[hash].js',
+      new MiniCssExtractPlugin({
+        filename: 'style.css'
       }),
-      new HtmlWebpackPlugin({
+      new HtmlWebPackPlugin({
         template: path.join(__dirname, 'src/index.html'),
         filename: 'index.html',
         inject: 'body'
       }),
-      ifProd(new webpack.optimize.DedupePlugin()),
-      ifProd(new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          'warnings': false
-        },
-        sourceMap: false
-      })),
       ifProd(new webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify("production")
       }))
-    ])
+    ]),
+    optimization: {
+      splitChunks: {
+        minChunks: Infinity,
+        cacheGroups: {
+          vendors: {
+            name: 'vendor',
+            filename: '[name].[hash].js',
+          }
+        }
+      },
+      minimize: true
+    },
+    mode: env.dev ? 'development' : 'production'
   };
 };
