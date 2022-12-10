@@ -21,7 +21,7 @@
   "dependencies": {
     "babel-standalone": "^6.19.0",
     "clipboard": "^1.5.15",
-    "express": "^4.14.0",
+    "express": "^4.17.3",
     "glamor": "^2.19.0",
     "react": "^15.4.1",
     "react-codemirror": "^0.3.0",
